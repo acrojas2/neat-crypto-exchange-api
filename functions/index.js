@@ -9,11 +9,13 @@ const {verifyAtuhentication} = require("./middlewares/auth");
 const cors = require("cors");
 const {corsOptions} = require("./config/cors");
 
-const userRoutes = require("./routes/users");
-const orderRoutes = require("./routes/orders");
-const currencyRoutes = require("./routes/currencies");
-const marketPriceRoutes = require("./routes/market-prices");
-const marketRoutes = require("./routes/markets");
+const {
+  userRoutes,
+  orderRoutes,
+  currencyRoutes,
+  marketPriceRoutes,
+  marketRoutes,
+} = require("./routes/index");
 
 
 const app = express();
