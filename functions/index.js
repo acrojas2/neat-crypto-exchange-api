@@ -3,8 +3,10 @@
 const functions = require("firebase-functions");
 const express = require("express");
 const bodyParser = require("body-parser");
+
+const {verifyAtuhentication} = require("./middlewares/auth");
+
 const cors = require("cors");
-const {admin} = require("./config/admin-firestore");
 const {corsOptions} = require("./config/cors");
 
 const userRoutes = require("./routes/users");
@@ -24,24 +26,8 @@ app.options("*", cors(corsOptions));
 app.use(express.json());
 
 
-async function verifyAtuhentication(req, res, next) {
-  if (!req.headers.authorization ||
-        !req.headers.authorization.startsWith("Bearer ")) {
-    return res.status(403).json({error: "No token provided"});
-  }
-
-  const token = req.headers.authorization.split(" ")[1];
-
-  try {
-    const decodedIdToken = await admin.auth().verifyIdToken(token);
-    req.user = decodedIdToken;
-    next();
-  } catch (err) {
-    return res.status(403).json({error: "Unauthorized"});
-  }
-}
-
 app.use(verifyAtuhentication);
+
 app.use("/users", userRoutes);
 app.use("/orders", orderRoutes);
 app.use("/currencies", currencyRoutes);
