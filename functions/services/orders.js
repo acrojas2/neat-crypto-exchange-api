@@ -32,7 +32,7 @@ async function frozenBalanceInWallets(
       (fiatWallet.frozenBalanceToRemove || 0) + frozenFiatAmount;
 
     const newCryptoFrozenBalance =
-      (cryptoWallet.frozenBalance || 0) + frozenCryptoAmount;
+      (cryptoWallet.frozenBalanceToAdd || 0) + frozenCryptoAmount;
 
     const updateFiatWallet = walletsRef.doc(fiatWallet.id).update({
       balance: newFiatBalance,
