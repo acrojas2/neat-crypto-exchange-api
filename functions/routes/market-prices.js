@@ -43,10 +43,11 @@ router.post("/", async (req, res) => {
     marketId,
     oneDayVariation,
     currentPrice,
+    baseCurrency,
+    quoteCurrency,
   } = req.body.marketPrice;
 
-  const marketPriceRef = db.collection("markets").doc(marketId)
-      .collection("prices");
+  const marketPriceRef = db.collection("market-prices").doc(marketId);
 
   const marketPriceDoc = await marketPriceRef.get();
 
@@ -55,6 +56,8 @@ router.post("/", async (req, res) => {
       marketId,
       oneDayVariation,
       currentPrice,
+      baseCurrency,
+      quoteCurrency,
     });
     const newMarketPriceDoc = await marketPriceRef.get();
     const newMarketPrice = newMarketPriceDoc.data();
