@@ -4,7 +4,7 @@ const {db} = require("../config/admin-firestore");
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-router.post("/currencies", async (req, res) => {
+router.post("/", async (req, res) => {
   const {code, name, type, price, updatedAt} = req.body.currency;
 
   const currencyRef = db.collection("currencies").doc(code);
